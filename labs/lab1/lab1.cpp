@@ -22,11 +22,13 @@ bool dfaCheck1(int lineNum, std::string dfa)
           {
             case 'a':
               currentState = one;
-              std::cout << "0a\n";
+              std::cout << "0a ";
+	      test = false;
               break;
             case 'b':
               currentState = zero;
-              std::cout << "0b\n";
+              std::cout << "0b ";
+	      test = false;
               break;
             default:
               std::cout << "Ivalid character detected on line " << lineNum << "!!!" << std::endl;
@@ -39,11 +41,13 @@ bool dfaCheck1(int lineNum, std::string dfa)
           {
             case 'a':
               currentState = one;
-              std::cout << "1a\n";
+              std::cout << "1a ";
+	      test = false;
               break;
             case 'b':
               currentState = two;
-              std::cout << "1b\n";
+              std::cout << "1b ";
+	      test = false;
               break;
             default:
               std::cout << "Ivalid character detected on line " << lineNum << "!!!" << std::endl;
@@ -56,11 +60,12 @@ bool dfaCheck1(int lineNum, std::string dfa)
           {
             case 'a':
               currentState = one;
-              std::cout << "2a\n";
+              std::cout << "2a ";
+	      test = false;
               break;
             case 'b':
               currentState = three;
-              std::cout << "2b\n";
+              std::cout << "2b ";
               test = true;
               break;
             default:
@@ -74,12 +79,12 @@ bool dfaCheck1(int lineNum, std::string dfa)
           {
             case 'a':
               currentState = one;
-              std::cout << "3a\n";
+              std::cout << "3a ";
               test = false;
               break;
             case 'b':
               currentState = zero;
-              std::cout << "3b\n";
+              std::cout << "3b ";
               test = false;
               break;
             default:
@@ -96,6 +101,7 @@ bool dfaCheck1(int lineNum, std::string dfa)
 
       //std::cout << dfa[i] << std::endl;
     }
+    std::cout << std::endl;
     return test;
 }
 
@@ -113,11 +119,13 @@ bool dfaCheck2(int lineNum, std::string dfa)
           {
             case 'a':
               currentState = one;
-              std::cout << "0a\n";
+              std::cout << "0a ";
+	      test = false;
               break;
             case 'b':
               currentState = zero;
-              std::cout << "0b\n";
+              std::cout << "0b ";
+	      test = false;
               break;
             default:
               std::cout << "Ivalid character detected on line " << lineNum << "!!!" << std::endl;
@@ -130,11 +138,13 @@ bool dfaCheck2(int lineNum, std::string dfa)
           {
             case 'a':
               currentState = one;
-              std::cout << "1a\n";
+              std::cout << "1a ";
+	      test = false;
               break;
             case 'b':
               currentState = two;
-              std::cout << "1b\n";
+              std::cout << "1b ";
+	      test = false;
               break;
             default:
               std::cout << "Ivalid character detected on line " << lineNum << "!!!" << std::endl;
@@ -147,11 +157,12 @@ bool dfaCheck2(int lineNum, std::string dfa)
           {
             case 'a':
               currentState = one;
-              std::cout << "2a\n";
+              std::cout << "2a ";
+	      test = false;
               break;
             case 'b':
               currentState = three;
-              std::cout << "2b\n";
+              std::cout << "2b ";
               test = true;
               break;
             default:
@@ -165,12 +176,12 @@ bool dfaCheck2(int lineNum, std::string dfa)
           {
             case 'a':
               currentState = one;
-              std::cout << "3a\n";
+              std::cout << "3a ";
               test = false;
               break;
             case 'b':
               currentState = zero;
-              std::cout << "3b\n";
+              std::cout << "3b ";
               test = false;
               break;
             default:
@@ -187,6 +198,7 @@ bool dfaCheck2(int lineNum, std::string dfa)
 
       //std::cout << dfa[i] << std::endl;
     }
+    std::cout << std::endl;
     return test;
 }
 
@@ -201,13 +213,27 @@ int main () {
   	{
     		while (std::getline(inDFA, line))
     		{
-      			if(dfaCheck1(lineNum, line))
+			bool check1 = dfaCheck1(lineNum, line);
+			bool check2 = dfaCheck2(lineNum, line);
+      			if(check1 && check2)
       			{
-        			outDFA << "congrats on line " << lineNum << std::endl;
+        			outDFA << "Line " << lineNum << " is accepted by both DFAs." << std::endl;
       			}
-    			else
+			else if(check1 && !check2)
+			{
+				outDFA << "Line " << lineNum << " is accepted by DFA1 and rejected by DFA2." << std::endl; 
+			}
+			else if(!check1 && check2)
+			{
+				outDFA << "Line " << lineNum << " is accepted by DFA2 and rejected by DFA1." << std::endl;
+			}
+			else if(!check1 && !check2)
+			{
+				outDFA << "Line " << lineNum << " is rejected by both DFAs." << std::endl;
+			}	   			
+			else
     			{
-      				outDFA << "wrong on line " << lineNum << std::endl;
+      				outDFA << "Line " << lineNum << " has returned a strange sequence." << std::endl;
     			}
       			lineNum++;
     		}
