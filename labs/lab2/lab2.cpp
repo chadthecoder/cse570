@@ -31,7 +31,7 @@ int main () {
                     }
                     else if(terminals == 1)
                     {
-                        std::cout << getFirstSet(line);
+                        outGram << getFirstSet(line);
                     }
                     else
                     {
@@ -45,6 +45,7 @@ int main () {
                 }
   	        }
   }
+  outGram.close();
   inGram.close();
   return 0;
 }
