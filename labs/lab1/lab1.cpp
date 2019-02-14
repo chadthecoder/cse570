@@ -8,6 +8,10 @@ enum state
   zero = 0, one = 1, two = 2, three = 3
 };
 
+/*
+* if L=(a|b)*abb returns true
+* else returns false
+*/
 bool dfaCheck1(int lineNum, std::string dfa)
 {
     state currentState = zero;
@@ -22,12 +26,12 @@ bool dfaCheck1(int lineNum, std::string dfa)
           {
             case 'a':
               currentState = one;
-              std::cout << "0a ";
+              //std::cout << "0a ";
 	      test = false;
               break;
             case 'b':
               currentState = zero;
-              std::cout << "0b ";
+              //std::cout << "0b ";
 	      test = false;
               break;
             default:
@@ -41,12 +45,12 @@ bool dfaCheck1(int lineNum, std::string dfa)
           {
             case 'a':
               currentState = one;
-              std::cout << "1a ";
+              //std::cout << "1a ";
 	      test = false;
               break;
             case 'b':
               currentState = two;
-              std::cout << "1b ";
+              //std::cout << "1b ";
 	      test = false;
               break;
             default:
@@ -60,12 +64,12 @@ bool dfaCheck1(int lineNum, std::string dfa)
           {
             case 'a':
               currentState = one;
-              std::cout << "2a ";
+              //std::cout << "2a ";
 	      test = false;
               break;
             case 'b':
               currentState = three;
-              std::cout << "2b ";
+              //std::cout << "2b ";
               test = true;
               break;
             default:
@@ -79,12 +83,12 @@ bool dfaCheck1(int lineNum, std::string dfa)
           {
             case 'a':
               currentState = one;
-              std::cout << "3a ";
+              //std::cout << "3a ";
               test = false;
               break;
             case 'b':
               currentState = zero;
-              std::cout << "3b ";
+              //std::cout << "3b ";
               test = false;
               break;
             default:
@@ -101,10 +105,14 @@ bool dfaCheck1(int lineNum, std::string dfa)
 
       //std::cout << dfa[i] << std::endl;
     }
-    std::cout << std::endl;
+    //std::cout << std::endl;
     return test;
 }
 
+/*
+* if L=(a|b)a* returns true
+* else returns false
+*/
 bool dfaCheck2(int lineNum, std::string dfa)
 {
     state currentState = zero;
@@ -119,13 +127,13 @@ bool dfaCheck2(int lineNum, std::string dfa)
           {
             case 'a':
               currentState = one;
-              std::cout << "0a ";
-	      test = false;
+              //std::cout << "0a ";
+	      test = true;
               break;
             case 'b':
-              currentState = zero;
-              std::cout << "0b ";
-	      test = false;
+              currentState = one;
+              //std::cout << "0b ";
+	      test = true;
               break;
             default:
               std::cout << "Ivalid character detected on line " << lineNum << "!!!" << std::endl;
@@ -138,12 +146,12 @@ bool dfaCheck2(int lineNum, std::string dfa)
           {
             case 'a':
               currentState = one;
-              std::cout << "1a ";
-	      test = false;
+              //std::cout << "1a ";
+	      test = true;
               break;
             case 'b':
               currentState = two;
-              std::cout << "1b ";
+              //std::cout << "1b ";
 	      test = false;
               break;
             default:
@@ -156,32 +164,13 @@ bool dfaCheck2(int lineNum, std::string dfa)
           switch(dfa[i])
           {
             case 'a':
-              currentState = one;
-              std::cout << "2a ";
+              currentState = two;
+              //std::cout << "2a ";
 	      test = false;
               break;
             case 'b':
-              currentState = three;
-              std::cout << "2b ";
-              test = true;
-              break;
-            default:
-              std::cout << "Ivalid character detected on line " << lineNum << "!!!" << std::endl;
-              return false;
-              break;
-          }
-          break;
-        case three:
-          switch(dfa[i])
-          {
-            case 'a':
-              currentState = one;
-              std::cout << "3a ";
-              test = false;
-              break;
-            case 'b':
-              currentState = zero;
-              std::cout << "3b ";
+              currentState = two;
+              //std::cout << "2b ";
               test = false;
               break;
             default:
@@ -198,7 +187,7 @@ bool dfaCheck2(int lineNum, std::string dfa)
 
       //std::cout << dfa[i] << std::endl;
     }
-    std::cout << std::endl;
+    //std::cout << std::endl;
     return test;
 }
 
@@ -225,7 +214,7 @@ int main () {
 			}
 			else if(!check1 && check2)
 			{
-				outDFA << "Line " << lineNum << " is accepted by DFA2 and rejected by DFA1." << std::endl;
+				outDFA << "Line " << lineNum << " is rejected by DFA1 and accepted by DFA2." << std::endl;
 			}
 			else if(!check1 && !check2)
 			{
