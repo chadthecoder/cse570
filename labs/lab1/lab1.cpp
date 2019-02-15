@@ -1,7 +1,7 @@
 /*
-Chad McAdams
-005966723
-Lab 1
+* Chad McAdams
+* 005966723
+* Lab 1
 */
 #include <iostream>
 #include <fstream>

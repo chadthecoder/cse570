@@ -1,7 +1,7 @@
 /*
-Chad McAdams
-005966723
-Lab 2
+* Chad McAdams
+* 005966723
+* Lab 2
 */
 
 #include <fstream>
@@ -209,8 +209,13 @@ std::vector<std::string> getFollowSets(std::string inFile, std::string outFile, 
     
 }
 
-int main () {
-  std::string inFile = "g417.in", outFile = "sets_g417.out";
+int main (int argc, char *argv[]) {
+  if(argc != 3)
+  {
+      std::cout << "You must enter an in and out file!!!\n";
+      exit(5);
+  }
+  std::string inFile = argv[1], outFile = argv[2];
   std::vector<std::string> vTerminals, vTest, ans;
 
   //gets the terminals
