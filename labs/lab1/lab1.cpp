@@ -1,8 +1,14 @@
+/*
+Chad McAdams
+005966723
+Lab 1
+*/
 #include <iostream>
 #include <fstream>
 #include <string>
 #include <vector>
 
+//defines the states
 enum state
 {
   zero = 0, one = 1, two = 2, three = 3
@@ -193,8 +199,13 @@ bool dfaCheck2(int lineNum, std::string dfa)
 
 int main () {
   std::string line;
+
+  //gives the filestream
   std::ifstream inDFA ("dfa.in");
+
   int lineNum = 1;
+
+  //checks if the dfas will accepts the string from the given file
   if (inDFA.is_open())
   {
 	std::ofstream outDFA("dfa.out");
