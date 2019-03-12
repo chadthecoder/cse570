@@ -1,8 +1,8 @@
 %{
 #include <stdio.h>
-double regs[26];
+int regs[26];
 int base;
-double last;
+int last;
 int yylex();
 int yyerror(char *s);
 int yywrap();
@@ -10,7 +10,7 @@ int yywrap();
 
 %start list
 %union {
-  double a;
+  int a;
   char c;
 }
 %type <a> expr number DIGIT
@@ -31,11 +31,11 @@ list: /* empty */
     | list goodbye { exit(EXIT_SUCCESS); };
 
 stat: expr {
-        printf("%f\n", $1);
+        printf("%d\n", $1);
       }
     | LETTER '=' expr {
       regs[$1] = $3;
-	last = regs[$1];
+	//last = regs[$1];
     };
 
 expr: '(' expr ')' {
@@ -59,7 +59,7 @@ expr: '(' expr ')' {
 	last = $$;
       }
     | expr '%' expr {
-        $$ = (int)$1 % (int)$3;
+        $$ = $1 % $3;
 	last = $$;
       }
     | expr '+' expr {
@@ -79,25 +79,27 @@ expr: '(' expr ')' {
 	last = $$;
       }
     | expr '&' expr {
-        $$ = (int)$1 & (int)$3;
+        $$ = $1 & $3;
 	last = $$;
       }
     | '&' expr {
-        $$ = (int)last & (int)$2;
+        $$ = last & $2;
 	last = $$;
       }
     | expr '|' expr {
-        $$ = (int)$1 | (int)$3;
+        $$ = $1 | $3;
 	last = $$;
       }
+
 /*
     | '-' expr %prec UMINUS {
         $$ = -$2;
       }
 */
+
     | LETTER {
         $$ = regs[$1];
-	last = $$;
+	//last = $$;
       }
     | number;
 
